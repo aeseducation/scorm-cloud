@@ -1,19 +1,7 @@
 module ScormCloud
-	class ExportService
-		def start
-			raise "Not Implemented"
-		end
-		def cancel
-			raise "Not Implemented"
-		end
-		def status
-			raise "Not Implemented"
-		end
-		def download
-			raise "Not Implemented"
-		end
-		def list
-			raise "Not Implemented"
-		end
+	class ExportService < ScormCloud::Base
+
+		not_implemented :start, :cancel, :status, :download, :list
+
 	end
 end

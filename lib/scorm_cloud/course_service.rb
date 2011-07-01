@@ -1,67 +1,12 @@
 require 'scorm_cloud/course'
 
 module ScormCloud
-	class CourseService
+	class CourseService < ScormCloud::Base
 
-		def import_course
-			raise "Not Implemented"
-		end
-
-		def import_cours_async
-			raise "Not Implemented"
-		end
-
-		def get_async_import_result
-			raise "Not Implemented"
-		end
-
-		def preview
-			raise "Not Implemented"
-		end
-
-		def properties
-			raise "Not Implemented"
-		end
-
-		def exists
-			raise "Not Implemented"
-		end
-
-		def get_assets
-			raise "Not Implemented"
-		end
-
-		def update_assets
-			raise "Not Implemented"
-		end
-
-		def delete_course
-			raise "Not Implemented"
-		end
-
-		def get_file_structure
-			raise "Not Implemented"
-		end
-
-		def delete_files
-			raise "Not Implemented"
-		end
-
-		def get_attributes
-			raise "Not Implemented"
-		end
-
-		def update_attributes
-			raise "Not Implemented"
-		end
-
-		def get_metadata
-			raise "Not Implemented"
-		end
-
-		def get_manifest
-			raise "Not Implemented"
-		end
+		not_implemented :import_course, :import_cours_async, :get_async_import_result,
+				:preview, :properties, :exists, :get_assets, :update_assets, :delete_course,
+				:get_file_structure, :delete_files, :get_attributes, :update_attributes,
+				:get_metadata, :get_manifest
 
 		def get_course_list(connection, filter=nil, tags=nil)
 			raise "Filter Not Implemented" if filter

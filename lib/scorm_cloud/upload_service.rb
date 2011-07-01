@@ -1,25 +1,8 @@
 module ScormCloud
-	class UploadService
+	class UploadService < ScormCloud::Base
 
-		def get_upload_token()
-			raise "Not Implemented"
-		end
-
-		def upload_file()
-			raise "Not Implemented"
-		end
-
-		def get_upload_progress()
-			raise "Not Implemented"
-		end
-
-		def list_files()
-			raise "Not Implemented"
-		end
-
-		def delete_files()
-			raise "Not Implemented"
-		end
+		not_implemented :get_upload_token, :upload_file, :get_upload_progress,
+				:list_files, :delete_files
 
 	end
 end
