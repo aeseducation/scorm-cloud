@@ -1,3 +1,5 @@
+require 'scorm_cloud/course'
+
 module ScormCloud
 	class CourseService
 
@@ -61,8 +63,11 @@ module ScormCloud
 			raise "Not Implemented"
 		end
 
-		def get_course_list
-			raise "Not Implemented"
+		def get_course_list(connection, filter=nil, tags=nil)
+			raise "Filter Not Implemented" if filter
+			raise "Tags Not Implemented" if tags
+			xml = connection.call("rustici.course.getCourseList")
+			xml.elements["/rsp/courselist"].map { |element| ScormCloud::Course.new(element.attributes) }
 		end
 
 	end

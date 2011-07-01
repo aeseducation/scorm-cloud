@@ -31,6 +31,11 @@ describe "The scorm cloud module" do
 	end
 
 	describe ScormCloud.course do
+
+		before(:each) do
+			@c = ScormCloud.connect($scorm_cloud_appid,$scorm_cloud_secret)
+		end
+
 		it { should respond_to(:import_course) }
 		it { should respond_to(:import_cours_async) }
 		it { should respond_to(:get_async_import_result) }
@@ -46,7 +51,17 @@ describe "The scorm cloud module" do
 		it { should respond_to(:update_attributes) }
 		it { should respond_to(:get_metadata) }
 		it { should respond_to(:get_manifest) }
+
+
 		it { should respond_to(:get_course_list) }
+		it "should get course lists" do
+			courses = ScormCloud.course.get_course_list(@c)
+			courses.length.should_not eq(0)
+			courses.each do |c|
+				c.title.should_not be_nil
+				c.id.should_not be_nil
+			end
+		end
 	end
 
 	describe ScormCloud.registration do
