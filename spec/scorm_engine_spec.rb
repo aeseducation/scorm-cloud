@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+# TODO: GetCourseList -- Tags
+
+
 describe "The scorm cloud module" do
 
 	describe ScormCloud.debug do
@@ -32,7 +35,7 @@ describe "The scorm cloud module" do
 
 	describe ScormCloud.course do
 
-		before(:each) do
+		before(:all) do
 			@c = ScormCloud.connect($scorm_cloud_appid,$scorm_cloud_secret)
 		end
 
@@ -62,13 +65,18 @@ describe "The scorm cloud module" do
 				c.id.should_not be_nil
 			end
 		end
+
 	end
 
 	describe ScormCloud.registration do
+
+		before(:all) do
+			@c = ScormCloud.connect($scorm_cloud_appid,$scorm_cloud_secret)
+		end
+
 		it { should respond_to(:create_registration) }
 		it { should respond_to(:delete_registration) }
 		it { should respond_to(:reset_registration) }
-		it { should respond_to(:get_registration_list) }
 		it { should respond_to(:get_registration_result) }
 		it { should respond_to(:get_registration_list_results)}
 		it { should respond_to(:launch) }
@@ -77,6 +85,17 @@ describe "The scorm cloud module" do
 		it { should respond_to(:reset_global_objectives) }
 		it { should respond_to(:update_learner_info) }
 		it { should respond_to(:test_registration_post_url) }
+
+
+		it { should respond_to(:get_registration_list) }
+		it "should get registration lists" do
+			registrations = ScormCloud.registration.get_registration_list(@c)
+			registrations.length.should_not eq(0)
+			registrations.each do |r|
+				r.id.should_not be_nil
+			end
+		end
+
 	end
 
 	describe ScormCloud.tagging do

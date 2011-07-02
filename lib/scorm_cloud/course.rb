@@ -1,10 +1,12 @@
 module ScormCloud
-	class Course
+	class Course < ScormCloud::BaseObject
 
-		attr_accessor :id, :size, :versions, :registrations, :title
+		attr_accessor :id, :versions, :registrations, :title, :size
 
-		def initialize(attributes = {})
-			attributes.each { |k,v| send("#{k}=".to_sym, v) }
+		def self.from_xml(element)
+			c = Course.new
+			c.set_attributes(element.attributes)
+			c
 		end
 
 	end
