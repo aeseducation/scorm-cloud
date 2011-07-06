@@ -3,7 +3,13 @@ require 'digest/md5'
 require 'net/http'
 require 'uri'
 
+require 'scorm_cloud/base'
 require 'scorm_cloud/connection'
+
+require 'scorm_cloud/base_object'
+require 'scorm_cloud/course'
+require 'scorm_cloud/registration'
+
 require 'scorm_cloud/debug_service'
 require 'scorm_cloud/upload_service'
 require 'scorm_cloud/course_service'

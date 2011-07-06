@@ -1,37 +1,9 @@
 module ScormCloud
-	class DispatchService
-		def get_destination_list
-			raise "Not Implemented"
-		end
-		def get_destination_info
-			raise "Not Implemented"
-		end
-		def create_destination
-			raise "Not Implemented"
-		end
-		def update_destination
-			raise "Not Implemented"
-		end
-		def delete_destination
-			raise "Not Implemented"
-		end
-		def get_dispatch_list
-			raise "Not Implemented"
-		end
-		def get_dispatch_info
-			raise "Not Implemented"
-		end
-		def create_dispatch
-			raise "Not Implemented"
-		end
-		def update_dispatches
-			raise "Not Implemented"
-		end
-		def download_dispatches
-			raise "Not Implemented"
-		end
-		def delete_dispatches
-			raise "Not Implemented"
-		end
+	class DispatchService < ScormCloud::Base
+
+		not_implemented :get_destination_list, :get_destination_info, :create_destination,
+				:update_destination, :delete_destination, :get_dispatch_list, :get_dispatch_info,
+				:create_dispatch, :update_dispatches, :download_dispatches, :delete_dispatches
+			
 	end
 end

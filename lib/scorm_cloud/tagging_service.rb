@@ -1,41 +1,9 @@
 module ScormCloud
-	class TaggingService
-		def get_course_tags
-			raise "Not Implemented"
-		end
-		def set_course_tags
-			raise "Not Implemented"
-		end
-		def add_course_tag
-			raise "Not Implemented"
-		end
-		def remove_course_tag
-			raise "Not Implemented"
-		end
-		def get_learner_tags
-			raise "Not Implemented"
-		end
-		def set_learner_tags
-			raise "Not Implemented"
-		end
-		def add_learner_tag
-			raise "Not Implemented"
-		end
-		def remove_learner_tag
-			raise "Not Implemented"
-		end
-		def get_registration_tags
-			raise "Not Implemented"
-		end
-		def set_registration_tags
-			raise "Not Implemented"
-		end
-		def add_registration_tag
-			raise "Not Implemented"
-		end
-		def remove_registration_tag
-			raise "Not Implemented"
-		end
+	class TaggingService < ScormCloud::Base
+		not_implemented :get_course_tags, :set_course_tags, :add_course_tag,
+				:remove_course_tag, :get_learner_tags, :set_learner_tags, :add_learner_tag,
+				:remove_learner_tag, :get_registration_tags, :set_registration_tags,
+				:add_registration_tag, :remove_registration_tag
 	end
 end
 

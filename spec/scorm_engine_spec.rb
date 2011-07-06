@@ -1,12 +1,9 @@
 require 'spec_helper'
 
+# TODO: GetCourseList -- Tags
+
+
 describe "The scorm cloud module" do
-
-	before(:all) do
-	end
-
-	after(:all) do
-	end
 
 	describe ScormCloud.debug do
 
@@ -38,7 +35,7 @@ describe "The scorm cloud module" do
 
 	describe ScormCloud.course do
 
-		before(:each) do
+		before(:all) do
 			@c = ScormCloud.connect($scorm_cloud_appid,$scorm_cloud_secret)
 		end
 
@@ -57,15 +54,18 @@ describe "The scorm cloud module" do
 		it { should respond_to(:update_attributes) }
 		it { should respond_to(:get_metadata) }
 
+
+
 		it { should respond_to(:get_manifest).with(2).arguments }
-		it "should get course manifests" do
-			manifest = ScormCloud.course.get_manifest(@c, 'ZZHSANTMYCO01')
-			manifest.length.should_not eq(0)
+		it "should return a manifest as text" do
+			manifest = ScormCloud.course.get_manifest(@c,'ZZHSANTMYCO02')
 			manifest.should include('<manifest')
 		end
 
 
+
 		it { should respond_to(:get_course_list).with(1).argument }
+		it { should respond_to(:get_course_list).with(2).argument }
 		it "should get course lists" do
 			courses = ScormCloud.course.get_course_list(@c)
 			courses.length.should_not eq(0)
@@ -74,31 +74,18 @@ describe "The scorm cloud module" do
 				c.id.should_not be_nil
 			end
 		end
-		it "should get course lists with a regexp" do
-			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..')
-			courses.length.should eq(13)
-			courses.each do |c|
-				c.title.should_not be_nil
-				c.id.should_not be_nil
-			end
-		end
-		it "should get course lists by tag -- none found" do
-			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..', :tags => 'qq' )
-			courses.length.should eq(0)
-		end
-		it "should get course lists by tag -- one found" do
-			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..', :tags => 'zz' )
-			courses.length.should eq(1)
-		end
-
 
 	end
 
 	describe ScormCloud.registration do
+
+		before(:all) do
+			@c = ScormCloud.connect($scorm_cloud_appid,$scorm_cloud_secret)
+		end
+
 		it { should respond_to(:create_registration) }
 		it { should respond_to(:delete_registration) }
 		it { should respond_to(:reset_registration) }
-		it { should respond_to(:get_registration_list) }
 		it { should respond_to(:get_registration_result) }
 		it { should respond_to(:get_registration_list_results)}
 		it { should respond_to(:launch) }
@@ -107,6 +94,17 @@ describe "The scorm cloud module" do
 		it { should respond_to(:reset_global_objectives) }
 		it { should respond_to(:update_learner_info) }
 		it { should respond_to(:test_registration_post_url) }
+
+
+		it { should respond_to(:get_registration_list) }
+		it "should get registration lists" do
+			registrations = ScormCloud.registration.get_registration_list(@c)
+			registrations.length.should_not eq(0)
+			registrations.each do |r|
+				r.id.should_not be_nil
+			end
+		end
+
 	end
 
 	describe ScormCloud.tagging do
