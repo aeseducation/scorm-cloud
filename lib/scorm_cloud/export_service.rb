@@ -1,5 +1,5 @@
 module ScormCloud
-	class ExportService < ScormCloud::Base
+	class ExportService < BaseService
 
 		not_implemented :start, :cancel, :status, :download, :list
 

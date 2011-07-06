@@ -1,5 +1,5 @@
 module ScormCloud
-	class Connection
+	class Base
 
 		def initialize(appid, secret)
 			@appid = appid
