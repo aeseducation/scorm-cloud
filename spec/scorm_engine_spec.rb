@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe "The scorm cloud module" do
 
+	before(:all) do
+	end
+
+	after(:all) do
+	end
+
 	describe ScormCloud.debug do
 
 		before(:each) do
@@ -50,10 +56,16 @@ describe "The scorm cloud module" do
 		it { should respond_to(:get_attributes) }
 		it { should respond_to(:update_attributes) }
 		it { should respond_to(:get_metadata) }
-		it { should respond_to(:get_manifest) }
+
+		it { should respond_to(:get_manifest).with(2).arguments }
+		it "should get course manifests" do
+			manifest = ScormCloud.course.get_manifest(@c, 'ZZHSANTMYCO01')
+			manifest.length.should_not eq(0)
+			manifest.should include('<manifest')
+		end
 
 
-		it { should respond_to(:get_course_list) }
+		it { should respond_to(:get_course_list).with(1).argument }
 		it "should get course lists" do
 			courses = ScormCloud.course.get_course_list(@c)
 			courses.length.should_not eq(0)
@@ -62,6 +74,24 @@ describe "The scorm cloud module" do
 				c.id.should_not be_nil
 			end
 		end
+		it "should get course lists with a regexp" do
+			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..')
+			courses.length.should eq(13)
+			courses.each do |c|
+				c.title.should_not be_nil
+				c.id.should_not be_nil
+			end
+		end
+		it "should get course lists by tag -- none found" do
+			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..', :tags => 'qq' )
+			courses.length.should eq(0)
+		end
+		it "should get course lists by tag -- one found" do
+			courses = ScormCloud.course.get_course_list(@c, :filter => 'ZZHSANTMYCO..', :tags => 'zz' )
+			courses.length.should eq(1)
+		end
+
+
 	end
 
 	describe ScormCloud.registration do

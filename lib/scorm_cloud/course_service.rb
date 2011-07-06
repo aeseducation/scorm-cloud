@@ -59,15 +59,15 @@ module ScormCloud
 			raise "Not Implemented"
 		end
 
-		def get_manifest
-			raise "Not Implemented"
+		def get_manifest(connection, course_id)
+			connection.call_raw("rustici.course.getManifest", :courseid => course_id)
 		end
 
-		def get_course_list(connection, filter=nil, tags=nil)
-			raise "Filter Not Implemented" if filter
-			raise "Tags Not Implemented" if tags
-			xml = connection.call("rustici.course.getCourseList")
-			xml.elements["/rsp/courselist"].map { |element| ScormCloud::Course.new(element.attributes) }
+		def get_course_list(connection, options = {})
+			xml = connection.call("rustici.course.getCourseList", options)
+			xml.elements["/rsp/courselist"].map { |element| 
+				ScormCloud::Course.new(element.attributes) 
+			}
 		end
 
 	end

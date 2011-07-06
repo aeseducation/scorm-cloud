@@ -11,6 +11,11 @@ module ScormCloud
 			execute_call_xml(url)
 		end
 
+		def call_raw(method, params = {})
+			url = prepare_url(method, params)
+			execute_call_plain(url)
+		end			
+
 		# Get plain response body and parse the XML doc
 		def execute_call_xml(url)
 			doc = REXML::Document.new(execute_call_plain(url))
