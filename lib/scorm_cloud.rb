@@ -1,8 +1,8 @@
 require 'rexml/document'
 require 'digest/md5'
 require 'net/http'
+require 'net/http/post/multipart'
 require 'uri'
-
 require 'scorm_cloud/base'
 
 require 'scorm_cloud/base_object'

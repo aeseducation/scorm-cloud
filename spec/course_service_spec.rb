@@ -24,19 +24,19 @@ describe "Rustici Web Service API" do
  		it { should respond_to(:get_course_list).with(0).argument }
  		it { should respond_to(:get_course_list).with(1).argument }
 
-		it "should return a manifest as text" do
-			manifest = subject.get_manifest('ZZHSANTMYCO02')
-			manifest.should include('<manifest')
-		end
+		# it "should return a manifest as text" do
+		# 	manifest = subject.get_manifest('ZZHSANTMYCO02')
+		# 	manifest.should include('<manifest')
+		# end
 
-		it "should get course lists" do
-			courses = subject.get_course_list
-			courses.length.should_not eq(0)
-			courses.each do |c|
-				c.title.should_not be_nil
-				c.id.should_not be_nil
-			end
-		end
+		# it "should get course lists" do
+		# 	courses = subject.get_course_list
+		# 	courses.length.should_not eq(0)
+		# 	courses.each do |c|
+		# 		c.title.should_not be_nil
+		# 		c.id.should_not be_nil
+		# 	end
+		# end
 
 	end
 

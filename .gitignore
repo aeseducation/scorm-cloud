@@ -3,6 +3,7 @@
 Gemfile.lock
 pkg/*
 spec/apikey.rb
+features/support/apikey.rb
 .rspec
 
 

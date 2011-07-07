@@ -1,6 +1,8 @@
 module ScormCloud
 	class Base
 
+		attr_reader :appid
+
 		def initialize(appid, secret)
 			@appid = appid
 			@secret = secret
@@ -19,6 +21,21 @@ module ScormCloud
 		def call_url(url)
 			execute_call_plain(url)
 		end
+
+		def post(method, path, params = {})
+			url = URI.parse(prepare_url(method, params))
+			body = nil
+			File.open(path) do |f|
+  				req = Net::HTTP::Post::Multipart.new "#{url.path}?#{url.query}",
+    				"file" => UploadIO.new(f, "application/zip", "scorm.zip")
+  				res = Net::HTTP.start(url.host, url.port) do |http|
+    				http.request(req)
+  				end
+  				body = res.body
+			end
+			REXML::Document.new(body)
+		end
+
 
 	private
 

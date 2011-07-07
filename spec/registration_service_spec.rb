@@ -17,13 +17,13 @@ describe "Rustici Web Service API" do
 		it { should respond_to(:test_registration_post_url) }
 		it { should respond_to(:get_registration_list).with(0).arguments }
 
-		it "should get registration lists" do
-			registrations = subject.get_registration_list
-			registrations.length.should_not eq(0)
-			registrations.each do |r|
-				r.id.should_not be_nil
-			end
-		end
+		# it "should get registration lists" do
+		# 	registrations = subject.get_registration_list
+		# 	registrations.length.should_not eq(0)
+		# 	registrations.each do |r|
+		# 		r.id.should_not be_nil
+		# 	end
+		# end
 
 	end
 end
