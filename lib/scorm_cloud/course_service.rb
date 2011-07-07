@@ -5,7 +5,7 @@ module ScormCloud
 				:preview, :properties, :exists, :get_assets, :update_assets, :delete_course,
 				:get_file_structure, :delete_files, :get_attributes, :update_attributes,
 				:get_metadata
-
+		
 		def get_manifest(course_id)
 			connection.call_raw("rustici.course.getManifest", :courseid => course_id)
 		end
