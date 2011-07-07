@@ -42,7 +42,7 @@ module ScormCloud
 		# Get plain response body and parse the XML doc
 		def execute_call_xml(url)
 			doc = REXML::Document.new(execute_call_plain(url))
-			raise create_error(doc) unless doc.elements["rsp"].attributes["stat"] == "ok"
+			raise create_error(doc, url) unless doc.elements["rsp"].attributes["stat"] == "ok"
 			doc
 		end
 
@@ -80,11 +80,11 @@ module ScormCloud
 
 	
 		# Create an exception with code & message
-		def create_error(doc)
+		def create_error(doc, url)
 			err = doc.elements["rsp"].elements["err"]
 			code = err.attributes["code"]
 			msg = err.attributes["msg"]
-			"Error In Scorm Cloud: Error=#{code} Message=#{msg}"
+			"Error In Scorm Cloud: Error=#{code} Message=#{msg} URL=#{url}"
 		end
 
 

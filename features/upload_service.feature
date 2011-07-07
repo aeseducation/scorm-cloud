@@ -1,8 +1,5 @@
 Feature: Upload Service Interface
 
-	Background:
-		Given connection to the scorm cloud
-
 	Scenario: Upload a course
 
 		When I upload a package

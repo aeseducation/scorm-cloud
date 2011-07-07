@@ -28,8 +28,9 @@ module ScormCloud
 		def delete_files files
 			if !files.is_a?(String) && files.is_a?(Enumerable)
 			 	files = files.map { |f| "file=#{f}"}.join('&')
-			 end
-			connection.call("rustici.upload.deleteFiles", { :file => files })
+			end
+			result = connection.call("rustici.upload.deleteFiles", { :file => files })
+			!result.to_s.include?("deleted='false'")
 		end
 
 	end

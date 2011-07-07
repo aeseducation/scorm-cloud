@@ -13,26 +13,57 @@ require 'scorm_cloud'
 
 require 'rspec/expectations'
 
-Before do
-	
-	# Cleanup all zip packages
-	temp = ScormCloud::ScormCloud.new($scorm_cloud_appid,$scorm_cloud_secret)
-	temp.upload.list_files.each do |file|
-		puts temp.upload.delete_files(file[:file])
-	end
-	raise "Cannot delete files" unless temp.upload.list_files.length == 0
 
-	# Upload one we can use for testing
-	token = temp.upload.get_upload_token
-	path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'small_scorm_package.zip')
-	temp.upload.upload_file(token, path)
+##
+## Cleanup before testing
+##
+Before do
+
+	# Grab a connection
+	unless @c
+		@c = ScormCloud::ScormCloud.new($scorm_cloud_appid,$scorm_cloud_secret)
+	end
+
+	# Cleanup all courses
+	@c.course.get_course_list.each do |course|
+		@c.course.delete_course(course.id)
+	end
+	@c.course.get_course_list.count.should eq(0)
+
+	unless @last_uploaded_file
+
+		# Cleanup all zip packages
+		@c.upload.list_files.each do |file|
+			@c.upload.delete_files(file[:file])
+		end
+		raise "Cannot delete files" unless @c.upload.list_files.length == 0
+
+		# Upload one we can use for testing
+		token = @c.upload.get_upload_token
+		path = File.join(File.dirname(__FILE__), '..', '..', 'spec', 'small_scorm_package.zip')
+		@last_uploaded_path = @c.upload.upload_file(token, path)
+		@last_uploaded_dir, @last_uploaded_file = @last_uploaded_path.split('/')
+		@last_uploaded_file.should include('.zip')
+
+	end
+
+	# was a course created?
+	@c.course.get_course_list.count.should eq(0)
+	@c.upload.list_files.count.should eq(1)
+
+	@last_course_id = nil
+	@last_error = nil
+	@last_response = nil
 
 end
 
 
 After do
-	# Cleanup -- Use the array style
-	temp = ScormCloud::ScormCloud.new($scorm_cloud_appid,$scorm_cloud_secret)
-	temp.upload.delete_files(temp.upload.list_files.map { |file| file[:file] })
-	raise "Cannot delete files" unless temp.upload.list_files.length != 0
+
+	# Cleanup all courses
+	@c.course.get_course_list.each do |course|
+		@c.course.delete_course(course.id)
+	end
+
 end
+
