@@ -1,2 +1,2 @@
-= Rustici SCORM Cloud -- Ruby Client API
+h1. Rustici SCORM Cloud -- Ruby Client API
 (Work in progress)
