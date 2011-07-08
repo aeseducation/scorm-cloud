@@ -96,3 +96,7 @@ end
 Then /^I can get a preview URL for the course$/ do
 	@c.course.preview(@last_course_id).should match(/http:\/\/.+/)
 end
+
+Then /^the course will have a properties url$/ do
+	@c.course.properties(@last_course_id).should match(/http:\/\/.+/)
+end

@@ -9,7 +9,10 @@ Feature: Course Service Interface
 		Then there should be 0 courses in the list
 		Then the course should not be in the course list
 
-	@wip
 	Scenario: A user can preview a course w/o registration
 		When I import a course
 		Then I can get a preview URL for the course
+
+	Scenario: A course has properties
+		When I import a course
+		Then the course will have a properties url

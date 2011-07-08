@@ -2,7 +2,7 @@ module ScormCloud
 	class CourseService < BaseService
 
 		not_implemented :import_cours_async, :get_async_import_result,
-				:preview, :properties, :exists, :get_assets, :update_assets, :delete_course,
+				:exists, :get_assets, :update_assets, :delete_course,
 				:get_file_structure, :delete_files, :get_attributes, :update_attributes,
 				:get_metadata, :get_manifest, :get_course_list
 
@@ -19,6 +19,10 @@ module ScormCloud
 
 		def preview(course_id)
 			connection.call_raw("rustici.course.preview", :courseid => course_id)
+		end
+
+		def properties(course_id)
+			connection.call_raw("rustici.course.properties", :courseid => course_id)
 		end
 
 				
