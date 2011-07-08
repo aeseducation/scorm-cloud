@@ -1,4 +1,12 @@
 ##
+## Generic
+##
+Then /^I will get a valid url$/ do
+	@last_url.should match(/http\:\/\/.+/)
+end
+
+
+##
 ## Debug Service
 ##
 
@@ -77,6 +85,10 @@ When /^I import a course$/ do
 	hash[:title].should_not be_nil
 end
 
+Given /^a registered course$/ do
+	When "I import a course"
+end
+
 Then /^the course should be in the course list$/ do
 	@c.course.get_course_list.find { |c| c.id == @last_course_id}.should_not be_nil
 end
@@ -99,4 +111,70 @@ end
 
 Then /^the course will have a properties url$/ do
 	@c.course.properties(@last_course_id).should match(/http:\/\/.+/)
+end
+
+Then /^the course should exist$/ do
+  @c.course.exists(@last_course_id).should be_true
+end
+
+Then /^I can get the manifest for the course$/ do
+  xml = @c.course.get_manifest(@last_course_id)
+  doc = REXML::Document.new(xml)
+  doc.elements["//manifest"].should_not be_nil
+end
+
+Then /^I can get the attributes for the course$/ do
+	h = @c.course.get_attributes(@last_course_id)
+	h.should be_kind_of(Hash)
+	h[:showProgressBar].should eq("false")
+	h[:showCourseStructure].should eq("true")
+end
+
+When /^I update course attributes$/ do
+	updated = @c.course.update_attributes(@last_course_id, 
+		{:desiredHeight => "700", :commCommitFrequency => "59999" })
+	updated[:desiredHeight].should eq("700")
+	updated[:commCommitFrequency].should eq("59999")
+end
+
+Then /^the course attributes should be updated$/ do
+	h = @c.course.get_attributes(@last_course_id)
+	h.should be_kind_of(Hash)
+	h[:desiredHeight].should eq("700")
+	h[:commCommitFrequency].should eq("59999")
+end
+
+
+##
+## Registration
+##
+
+When /^I register a learner$/ do
+	@last_reg_id = "small_scorm_course_#{rand(1000)}"
+	r = @c.registration.create_registration(@last_course_id, @last_reg_id, 
+			"fname", "lname", "lid", :email => "lid@example.com")
+	r.should be_true
+end
+
+Then /^the learner should be in the registration list$/ do
+	list = @c.registration.get_registration_list
+	list.find { |r| r.id == @last_reg_id }.should_not be_nil
+end
+
+Then /^the learner should not be in the registration list$/ do
+	list = @c.registration.get_registration_list
+	list.find { |r| r.id == @last_reg_id }.should be_nil
+end
+
+When /^I delete the registration$/ do
+	@c.registration.delete_registration(@last_reg_id).should be_true
+end
+
+When /^I launch the course$/ do
+  @last_url = @c.registration.launch(@last_reg_id, "http://www.example.com/")
+end
+
+Then /^I can get the registration results$/ do
+  @reg_results = @c.registration.get_registration_result(@last_reg_id, "full")
+  @reg_results.should include('<rsp stat="ok"><registrationreport')
 end

@@ -45,7 +45,6 @@ Before do
 		@last_uploaded_dir, @last_uploaded_file = @last_uploaded_path.split('/')
 		@last_uploaded_file.should include('.zip')
 
-		puts "PATH: #{@last_uploaded_path}"
 		sleep(5)
 
 	end

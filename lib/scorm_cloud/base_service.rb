@@ -15,5 +15,13 @@ module ScormCloud
  			end
 		end
 
+		# Convert xml attributes to hash { :name => value }
+		def xml_to_attributes(xml)
+			xml.elements["/rsp/attributes"].inject({}) { |h,e| 
+				h[e.attributes["name"].to_sym] = e.attributes["value"]
+				h 
+			}
+		end
+
 	end
 end

@@ -1,10 +1,40 @@
 module ScormCloud
 	class RegistrationService < BaseService
 
-		not_implemented :create_registration, :delete_registration, :reset_registration,
-			:get_registration_result, :get_registration_list_results,
-			:launch, :get_launch_history, :get_launch_info, :reset_global_objectives,
+		not_implemented :reset_registration, :get_registration_list_results,
+			:get_launch_history, :get_launch_info, :reset_global_objectives,
 			:update_learner_info, :test_registration_post_url
+
+		def create_registration(course_id, reg_id, first_name, last_name, learner_id, options = {})
+			params = options.merge({ 
+				:courseid => course_id,
+				:regid => reg_id,
+				:fname => first_name,
+				:lname => last_name,
+				:learnerid => learner_id
+			})
+			xml = connection.call("rustici.registration.createRegistration", params)
+			!xml.elements["/rsp/success"].nil?
+		end
+
+		def get_registration_result(reg_id, format="course")
+			raise "Illegal format argument: #{format}" unless ["course","activity","full"].include?(format)
+			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
+		end
+
+
+		def delete_registration(reg_id)
+			xml = connection.call("rustici.registration.deleteRegistration", {:regid => reg_id })
+			!xml.elements["/rsp/success"].nil?
+		end
+
+		def launch(reg_id, redirect_url, options = {})
+			params = options.merge({ 
+				:regid => reg_id,
+				:redirecturl => redirect_url
+			})
+			connection.call_raw("rustici.registration.launch", params)
+		end
 
 		def get_registration_list(options = {})
 			xml = connection.call("rustici.registration.getRegistrationList", options)
