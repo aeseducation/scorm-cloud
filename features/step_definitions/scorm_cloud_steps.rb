@@ -106,7 +106,7 @@ Then /^the course should not be in the course list$/ do
 end
 
 Then /^I can get a preview URL for the course$/ do
-	@c.course.preview(@last_course_id).should match(/http:\/\/.+/)
+	@c.course.preview(@last_course_id, "http://www.example.com").should match(/http:\/\/.+/)
 end
 
 Then /^the course will have a properties url$/ do

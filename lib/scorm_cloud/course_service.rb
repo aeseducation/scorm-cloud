@@ -39,8 +39,8 @@ module ScormCloud
 			xml.elements["/rsp/courselist"].map { |e| Course.from_xml(e) }
 		end
 
-		def preview(course_id)
-			connection.call_raw("rustici.course.preview", :courseid => course_id)
+		def preview(course_id, redirect_url)
+			connection.call_raw("rustici.course.preview", :courseid => course_id, :redirecturl => redirect_url)
 		end
 
 		def update_attributes(course_id, attributes)
