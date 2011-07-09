@@ -127,7 +127,7 @@ Then /^I can get the attributes for the course$/ do
 	h = @c.course.get_attributes(@last_course_id)
 	h.should be_kind_of(Hash)
 	h[:showProgressBar].should eq("false")
-	h[:showCourseStructure].should eq("true")
+	h[:showCourseStructure].should eq("false")
 end
 
 When /^I update course attributes$/ do
@@ -168,6 +168,10 @@ end
 
 When /^I delete the registration$/ do
 	@c.registration.delete_registration(@last_reg_id).should be_true
+end
+
+When /^I reset the registration$/ do
+  @c.registration.reset_registration(@last_reg_id).should be_true
 end
 
 When /^I launch the course$/ do

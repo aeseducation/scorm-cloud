@@ -5,7 +5,7 @@ describe "Rustici Web Service API" do
 	describe ScormCloud::ScormCloud.new($scorm_cloud_appid,$scorm_cloud_secret).course do
 
 		it { should respond_to(:import_course).with(2).arguments }
-		it { should respond_to(:preview).with(1).argument }
+		it { should respond_to(:preview).with(2).argument }
 		it { should respond_to(:delete_course).with(1).arguments }
 		it { should respond_to(:exists).with(1).argument }
 		it { should respond_to(:get_attributes).with(1).argument }

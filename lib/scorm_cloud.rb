@@ -19,6 +19,8 @@ require 'scorm_cloud/reporting_service'
 require 'scorm_cloud/dispatch_service'
 require 'scorm_cloud/export_service'
 
+require 'scorm_cloud/railtie' if defined?(Rails)
+
 module ScormCloud
 	class ScormCloud < Base
 		add_service :debug => DebugService
@@ -31,4 +33,3 @@ module ScormCloud
 		add_service :export => ExportService
 	end
 end
-

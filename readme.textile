@@ -1,2 +1,51 @@
-h1. Rustici SCORM Cloud -- Ruby Client API
-(Work in progress)
+h1. Rustici SCORM Cloud Ruby Client
+
+This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
+
+h2. Standard Ruby Use
+bc..
+require 'scorm_cloud'
+sc = ScormCloud::ScormCloud.new(appkey,secret)
+sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
+
+h2. Ruby on Rails Use
+
+**Add the following to your gemfile**
+
+bc. require 'scorm_cloud', :git => 'git@github.com:aeseducation/scorm-cloud.git'
+
+**Add the following to /config/initializers/scorm_cloud.rb.**
+
+Don't forget to change MyApplication to the name of your application.
+
+bc. MyApplication::Application.configure do |config|
+	ScormCloud::ScormRailsHelpers.appkey = "my_app_key"
+	ScormCloud::ScormRailsHelpers.appkey = "my_secret_key"
+end
+
+**Use the helpers to reduce code in your controllers**
+
+bc. # app/controllers/course_controller.rb
+class CourseController < ApplicationController
+
+	def index
+		@courses = scorm_cloud.course.get_course_list
+	end
+
+	def launch
+		return_url = course_index_url
+		reg = scorm_cloud.registrations.create_registration(...)
+		redirect_to scorm_cloud.registrations.launch(...)
+	end
+
+end
+
+bc. # app/views/course/index.html.erb
+<ul>
+<%= @courses.each |course| %>
+	<li>
+		<%= link_to course_launch_path(course.title,course.id) %>
+	</li>
+<% end %>
+</ul>
+

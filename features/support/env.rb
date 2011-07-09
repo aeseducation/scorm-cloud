@@ -8,7 +8,7 @@ rescue Bundler::BundlerError => e
 end
 
 $LOAD_PATH.unshift(File.dirname(__FILE__) + '/../../lib')
-require File.join(File.dirname(__FILE__), 'apikey.rb')
+require File.join(File.dirname(__FILE__), '/../../spec/apikey.rb')
 require 'scorm_cloud'
 
 require 'rspec/expectations'
