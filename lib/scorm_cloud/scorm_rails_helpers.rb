@@ -11,7 +11,7 @@ module ScormCloud
 
   	def scorm_cloud
   		unless @scorm_cloud
-  			@scorm_cloud = ScormCloud::ScormCloud.new(@scorm_appid, @scorm_secretkey)
+  			@scorm_cloud = ::ScormCloud::ScormCloud.new(@scorm_appid, @scorm_secretkey)
   		end
   		@scorm_cloud
   	end

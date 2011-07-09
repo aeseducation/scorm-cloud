@@ -10,18 +10,19 @@ sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
 
 h2. Ruby on Rails Use
 
-_/Gemfile_
+_Place the following in: Gemfile_
 
 bc. require 'scorm_cloud', :git => 'git@github.com:aeseducation/scorm-cloud.git'
 
-_/config/initializers/scorm_cloud.rb_
+_Place the following in: config/initializers/scorm_cloud.rb_
+
 bc. # Change MyApplication to the name of your application
 MyApplication::Application.configure do |config|
 	ScormCloud::ScormRailsHelpers.appid = "my_app_id"
 	ScormCloud::ScormRailsHelpers.secretkey = "my_secret_key"
 end
 
-_/app/controllers.course_controller.rb_
+_Place the following in: /app/controllers.course_controller.rb_
 
 bc. # app/controllers/course_controller.rb
 class CourseController < ApplicationController
@@ -35,7 +36,7 @@ class CourseController < ApplicationController
 	end
 end
 
-_/app/views/course/index.html.erb_
+_Place the following in: /app/views/course/index.html.erb_
 bc. <ul>
 <%= @courses.each |course| %>
 	<li>
