@@ -3,15 +3,10 @@ module ScormCloud
 
   	def scorm_cloud
   		unless @scorm_cloud
-
-        puts "-------------"
-        puts Rails.configuration.inspect
-        puts Rails.configuration.config.inspect
-
   			@scorm_cloud = ::ScormCloud::ScormCloud.new(
-              Rails.configuration.config.scorm_appid,
-              Rails.configuration.config.scorm_secretkey
-            )
+          ::Rails.configuration.scorm_cloud.appid, 
+          ::Rails.configuration.scorm_cloud.secretkey
+        )
   		end
   		@scorm_cloud
   	end

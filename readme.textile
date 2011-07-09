@@ -18,8 +18,8 @@ _Place the following in: config/initializers/scorm_cloud.rb_
 
 bc. # Change MyApplication to the name of your application
 MyApplication::Application.configure do |config|
-	ScormCloud::ScormRailsHelpers.scorm_appid = "my_app_id"
-	ScormCloud::ScormRailsHelpers.scorm_secretkey = "my_secret_key"
+	config.scorm_cloud.appid = "my_app_id"
+	config.scorm_cloud.secretkey = "my_secret_key"
 end
 
 _Place the following in: /app/controllers.course_controller.rb_
