@@ -36,6 +36,13 @@ module ScormCloud
 			REXML::Document.new(body)
 		end
 
+		def launch_url(method, params = {})
+			prepare_url(method, params)
+		end
+
+
+	private
+
 		# Get the URL for the call
 		def prepare_url(method, params = {})
 			timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
@@ -53,7 +60,6 @@ module ScormCloud
 			"http://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
 		end
 
-	private
 
 		# Get plain response body and parse the XML doc
 		def execute_call_xml(url)

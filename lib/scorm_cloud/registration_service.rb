@@ -37,7 +37,7 @@ module ScormCloud
 				:regid => reg_id,
 				:redirecturl => redirect_url
 			})
-			connection.prepare_call("rustici.registration.launch", params)
+			connection.launch_url("rustici.registration.launch", params)
 		end
 
 		def reset_registration(reg_id)

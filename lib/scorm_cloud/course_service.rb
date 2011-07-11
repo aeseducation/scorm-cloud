@@ -10,7 +10,7 @@ module ScormCloud
 			xml = connection.call("rustici.course.importCourse", :courseid => course_id, :path => path)
 			if xml.elements['//rsp/importresult'].attributes["successful"] == "true"
 				title = xml.elements['//rsp/importresult/title'].text	
-				{ :title => title, :warnngs => [] }
+				{ :title => title, :warnings => [] }
 			else
 				nil
 			end
@@ -40,7 +40,7 @@ module ScormCloud
 		end
 
 		def preview(course_id, redirect_url)
-			connection.prepare_call("rustici.course.preview", :courseid => course_id, :redirecturl => redirect_url)
+			connection.launch_url("rustici.course.preview", :courseid => course_id, :redirecturl => redirect_url)
 		end
 
 		def update_attributes(course_id, attributes)
