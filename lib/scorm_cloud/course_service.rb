@@ -40,7 +40,7 @@ module ScormCloud
 		end
 
 		def preview(course_id, redirect_url)
-			connection.call_raw("rustici.course.preview", :courseid => course_id, :redirecturl => redirect_url)
+			connection.prepare_call("rustici.course.preview", :courseid => course_id, :redirecturl => redirect_url)
 		end
 
 		def update_attributes(course_id, attributes)

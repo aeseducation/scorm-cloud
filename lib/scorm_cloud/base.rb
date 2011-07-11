@@ -36,6 +36,22 @@ module ScormCloud
 			REXML::Document.new(body)
 		end
 
+		# Get the URL for the call
+		def prepare_url(method, params = {})
+			timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
+			params[:method] = method
+			params[:appid] = @appid
+			params[:ts] = timestamp
+			html_params = params.map { |k,v| "#{k.to_s}=#{v}" }.join("&")
+
+			raw = @secret + params.keys.
+					sort{ |a,b| a.to_s.downcase <=> b.to_s.downcase }.
+					map{ |k| "#{k.to_s}#{params[k]}" }.
+					join
+
+			sig = Digest::MD5.hexdigest(raw)
+			"http://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
+		end
 
 	private
 
@@ -58,24 +74,6 @@ module ScormCloud
 			else
 				raise "HTTP Error connecting to scorm cloud: #{res.inspect}"
 			end
-		end
-
-	
-		# Get the URL for the call
-		def prepare_url(method, params = {})
-			timestamp = Time.now.utc.strftime('%Y%m%d%H%M%S')
-			params[:method] = method
-			params[:appid] = @appid
-			params[:ts] = timestamp
-			html_params = params.map { |k,v| "#{k.to_s}=#{v}" }.join("&")
-
-			raw = @secret + params.keys.
-					sort{ |a,b| a.to_s.downcase <=> b.to_s.downcase }.
-					map{ |k| "#{k.to_s}#{params[k]}" }.
-					join
-
-			sig = Digest::MD5.hexdigest(raw)
-			"http://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
 		end
 
 	
