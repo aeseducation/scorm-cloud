@@ -42,11 +42,10 @@ class CourseController < ApplicationController
 end
 
 _Place the following in: /app/views/course/index.html.erb_
-bc. pre.<ul>
-pre.<%= @courses.each |course| %>
-pre.	<li>
-pre.		<%= link_to course_launch_path(course.title,course.id) %>
-pre.	</li>
-pre.<% end %>
-pre.</ul>
-
+bc. &lt;ul&gt;
+&lt;%= @courses.each |course| %&gt;
+	&lt;li&gt;
+		&lt;%= link_to course_launch_path(course.title,course.id) %&gt;
+	&lt;/li&gt;
+&lt;% end %&gt;
+&lt;/ul&gt;
