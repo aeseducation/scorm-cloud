@@ -2,6 +2,11 @@ h1. Rustici SCORM Cloud Ruby Client
 
 This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
 
+h2. Shell CLI Interface
+
+$ gem install 'scorm_cloud'
+$ scorm_cloud rustici.course.getCourseList --appid myappid --secret mysecret
+
 h2. Standard Ruby Use
 
 bc. require 'scorm_cloud'
@@ -37,11 +42,15 @@ class CourseController < ApplicationController
 end
 
 _Place the following in: /app/views/course/index.html.erb_
-bc. <ul>
+bc..
+pre..
+<ul>
 <%= @courses.each |course| %>
 	<li>
 		<%= link_to course_launch_path(course.title,course.id) %>
 	</li>
 <% end %>
 </ul>
+
+p.
 
