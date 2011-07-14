@@ -42,6 +42,7 @@ class CourseController < ApplicationController
 end
 
 _Place the following in: /app/views/course/index.html.erb_
+
 bq. # app/views/course/index.html.erb
 &lt;ul&gt;
 &lt;%= @courses.each |course| %&gt;
