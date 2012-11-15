@@ -4,4 +4,5 @@ gemspec
 
 gem 'rspec'
 gem 'cucumber'
+gem 'rake'
 
