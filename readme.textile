@@ -1,5 +1,8 @@
 h1. Rustici SCORM Cloud Ruby Client
 
+b1. Use this project with caution. I developed the code but never
+b1. actually used it in production.
+
 This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
 
 h2. Shell CLI Interface
