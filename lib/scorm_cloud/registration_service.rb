@@ -29,11 +29,11 @@ module ScormCloud
 
 		def get_registration_result(reg_id, format="course")
 			raise "Illegal format argument: #{format}" unless ["course","activity","full"].include?(format)
-			connection.call("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
+			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
 		end
 
 		def get_registration_result_for_course(reg_id)
-			xml = connection.call("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => "course" })
+			xml = connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => "course" })
 			xml.elements["/rsp/registrationreport"].map { |e| RegistrationResult.from_xml(e) }
 		end
 
