@@ -32,7 +32,7 @@ module ScormCloud
 			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
 		end
 
-		def get_regisration_result_for_course(reg_id)
+		def get_registration_result_for_course(reg_id)
 			xml = connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => "course" })
 			xml.elements["/rsp/registrationreport"].map { |e| RegistrationResult.from_xml(e) }
 		end
