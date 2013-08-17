@@ -4,7 +4,7 @@ module ScormCloud
 		attr_accessor :id, :courseid, :app_id, :registration_id, :course_id,
 				:course_title, :learner_id, :learner_first_name, :learner_last_name,
 				:email, :create_date, :first_access_date, :last_access_date,
-				:completed_date, :instances, :last_course_version_launched
+				:completed_date, :instances, :last_course_version_launched,:tin_can_registration_id
 
 		def self.from_xml(element)
 			r = Registration.new

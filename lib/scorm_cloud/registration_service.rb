@@ -17,6 +17,13 @@ module ScormCloud
 			!xml.elements["/rsp/success"].nil?
 		end
 
+		def get_registration_detail(reg_id)
+			xml = connection.call("rustici.registration.getRegistrationDetail", {:regid => reg_id })
+			!xml.elements["/rsp/success"].nil?
+
+			Registration.from_xml(xml.elements["/rsp/registration"])
+		end
+
 		def delete_registration(reg_id)
 			xml = connection.call("rustici.registration.deleteRegistration", {:regid => reg_id })
 			!xml.elements["/rsp/success"].nil?

@@ -15,6 +15,7 @@ describe "Rustici Web Service API" do
 		it { should respond_to(:get_registration_result).with(2).arguments }
 		it { should respond_to(:launch).with(2).arguments }
 		it { should respond_to(:launch).with(3).arguments }
+		it { should respond_to(:get_registration_detail).with(1).arguments }
 
 		# not implemented
 		it { should respond_to(:get_registration_list_results)}
