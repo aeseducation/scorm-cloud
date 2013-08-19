@@ -8,6 +8,7 @@ require 'scorm_cloud/base'
 require 'scorm_cloud/base_object'
 require 'scorm_cloud/course'
 require 'scorm_cloud/registration'
+require 'scorm_cloud/registration_result'
 
 require 'scorm_cloud/base_service'
 require 'scorm_cloud/debug_service'
