@@ -16,6 +16,17 @@ bc. require 'scorm_cloud'
 sc = ScormCloud::ScormCloud.new("my_app_id","my_secret_key")
 sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
 
+If you need to change the API URL to utilize the LocalWS engine (for example)
+then pass the API override URL as the third parameter to #initializer
+
+bc. require 'scorm_cloud'
+sc = ScormCloud::ScormCloud.new("my_app_id","my_secret_key","api_override_url")
+sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
+
+If you do not pass a third parameter then the default will be used
+
+bc. http://cloud.scorm.com/api
+
 h2. Ruby on Rails Use
 
 _Place the following in: Gemfile_
@@ -29,6 +40,10 @@ MyApplication::Application.configure do |config|
 	config.scorm_cloud.appid = "my_app_id"
 	config.scorm_cloud.secretkey = "my_secret_key"
 end
+
+Optionally you can configure the API URL override using
+
+bc. config.scorm_cloud.api_url = "api_override_url"
 
 _Place the following in: /app/controllers.course_controller.rb_
 
