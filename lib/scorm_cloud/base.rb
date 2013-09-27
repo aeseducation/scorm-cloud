@@ -1,11 +1,12 @@
 module ScormCloud
 	class Base
 
-		attr_reader :appid
+		attr_reader :appid, :api_url
 
-		def initialize(appid, secret)
+		def initialize(appid, secret, api_url = nil)
 			@appid = appid
 			@secret = secret
+      @api_url = api_url ||= 'http://cloud.scorm.com/api'
 		end
 
 		def call(method, params = {})
@@ -57,7 +58,7 @@ module ScormCloud
 					join
 
 			sig = Digest::MD5.hexdigest(raw)
-			"http://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
+			"#{api_url}?#{html_params}&sig=#{sig}"
 		end
 
 
