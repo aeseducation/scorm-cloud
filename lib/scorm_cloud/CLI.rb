@@ -2,7 +2,7 @@ module ScormCloud
 	class CLI
 		def self.start
 			command = ARGV.shift
-			secret = ENV['SCORM-CLOUD-APPID']
+			appid = ENV['SCORM-CLOUD-APPID']
 			secret = ENV['SCORM-CLOUD-SECRET']
 			opts = {}
 			while ARGV.length > 0
