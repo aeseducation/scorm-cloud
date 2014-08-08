@@ -1,7 +1,7 @@
 h1. Rustici SCORM Cloud Ruby Client
 
-bc. Use this project with caution. I developed the code but never
-actually used it in production.
+bc. Let me know if you are interested in taking it over. I developed the code but never
+actually used it in production. Use with caution.
 
 This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
 
