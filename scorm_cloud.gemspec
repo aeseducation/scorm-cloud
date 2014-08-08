@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = ""
   s.summary     = %q{Rustici Scorm Cloud Web Service API Wrapper}
   s.description = %q{Rustici Scorm Cloud Web Service API Wrapper}
+  s.license     = 'MIT'
 
   s.rubyforge_project = "scorm_cloud"
 
