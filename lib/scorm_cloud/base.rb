@@ -2,7 +2,7 @@ module ScormCloud
   class Base
     attr_reader :appid, :api_url
 
-    def initialize(appid, secret, api_url="http://cloud.scorm.com/api")
+    def initialize(appid, secret, api_url="https://cloud.scorm.com/api")
       @appid = appid
       @secret = secret
       @api_url = api_url
