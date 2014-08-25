@@ -8,15 +8,15 @@ describe "Rustici Web Service API" do
     it { should respond_to(:get_time).with(0).arguments }
 
     it "should ping the server" do
-      subject.ping.should include("pong")
+      expect(subject.ping).to include("pong")
     end
 
     it "should auth_ping the server" do
-      subject.auth_ping.should include("pong")
+      expect(subject.auth_ping).to include("pong")
     end
 
     it "should get the time" do
-      subject.get_time.should match(/\d+/)
+      expect(subject.get_time).to match(/\d+/)
     end
   end
 end
