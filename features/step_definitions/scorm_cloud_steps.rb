@@ -2,7 +2,7 @@
 ## Generic
 ##
 Then /^I will get a valid url$/ do
-  expect(@last_url).to match(/http\:\/\/.+/)
+  expect(@last_url).to match(/https\:\/\/.+/)
 end
 
 
@@ -106,11 +106,11 @@ Then /^the course should not be in the course list$/ do
 end
 
 Then /^I can get a preview URL for the course$/ do
-  expect(@c.course.preview(@last_course_id, "http://www.example.com")).to match(/http:\/\/.+/)
+  expect(@c.course.preview(@last_course_id, "http://www.example.com")).to match(/https:\/\/.+/)
 end
 
 Then /^the course will have a properties url$/ do
-  expect(@c.course.properties(@last_course_id)).to match(/http:\/\/.+/)
+  expect(@c.course.properties(@last_course_id)).to match(/https:\/\/.+/)
 end
 
 Then /^the course should exist$/ do

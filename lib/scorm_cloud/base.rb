@@ -28,7 +28,7 @@ module ScormCloud
       File.open(path) do |f|
           req = Net::HTTP::Post::Multipart.new "#{url.path}?#{url.query}",
             "file" => UploadIO.new(f, "application/zip", "scorm.zip")
-          res = Net::HTTP.start(url.host, url.port) do |http|
+          res = Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == "https") do |http|
             http.request(req)
           end
           body = res.body
@@ -48,7 +48,7 @@ module ScormCloud
       params[:method] = method
       params[:appid] = @appid
       params[:ts] = timestamp
-      html_params = params.map { |k,v| "#{k.to_s}=#{v}" }.join("&")
+      html_params = URI.encode_www_form(params)
 
       raw = @secret + params.keys.
           sort{ |a,b| a.to_s.downcase <=> b.to_s.downcase }.
