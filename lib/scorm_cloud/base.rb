@@ -22,16 +22,21 @@ module ScormCloud
       execute_call_plain(url)
     end
 
-    def post(method, path, params = {})
+    def post(method, file, params = {})
       url = URI.parse(prepare_url(method, params))
       body = nil
-      File.open(path) do |f|
+      block = Proc.new do |f|
           req = Net::HTTP::Post::Multipart.new "#{url.path}?#{url.query}",
             "file" => UploadIO.new(f, "application/zip", "scorm.zip")
           res = Net::HTTP.start(url.host, url.port, use_ssl: url.scheme == "https") do |http|
             http.request(req)
           end
           body = res.body
+      end
+      if file.respond_to? :read
+        block.call(file)
+      else
+        File.open(file, &block)
       end
       REXML::Document.new(body)
     end
