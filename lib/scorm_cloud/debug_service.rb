@@ -8,8 +8,8 @@ module ScormCloud
 			"pong"
 		end
 
-		def auth_ping()
-			xml = connection.call("rustici.debug.authPing")
+		def auth_ping(appid)
+			xml = connection.call("rustici.debug.authPing", {appid: appid})
 			raise "Bad Server Response" unless xml.elements["/rsp/pong"]
 			"pong"
 		end
