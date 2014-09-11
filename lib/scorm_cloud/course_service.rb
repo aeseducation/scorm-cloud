@@ -5,8 +5,12 @@ module ScormCloud
       :get_file_structure, :delete_files, :get_metadata
 
     # TODO: Handle Warnings
-    def import_course(course_id, path)
-      xml = connection.call("rustici.course.importCourse", :courseid => course_id, :path => path)
+    def import_course(course_id, file)
+      if file.respond_to? :read
+        xml = connection.post("rustici.course.importCourse", file, :courseid => course_id)
+      else
+        xml = connection.call("rustici.course.importCourse", :courseid => course_id, :path => file)
+      end
       if xml.elements['//rsp/importresult'].attributes["successful"] == "true"
         title = xml.elements['//rsp/importresult/title'].text 
         { :title => title, :warnings => [] }
