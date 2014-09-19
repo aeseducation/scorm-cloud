@@ -2,7 +2,7 @@ module ScormCloud
   class CourseService < BaseService
     not_implemented :import_cours_async, :get_async_import_result,
       :properties, :get_assets, :update_assets,
-      :get_file_structure, :delete_files, :get_metadata
+      :get_file_structure, :delete_files
 
     # TODO: Handle Warnings
     def import_course(course_id, file)
@@ -49,6 +49,11 @@ module ScormCloud
     def update_attributes(course_id, attributes)
       xml = connection.call("rustici.course.updateAttributes", attributes.merge({:courseid => course_id}))
       xml_to_attributes(xml)
+    end
+
+    def get_metadata(course_id, scope='course')
+      xml = connection.call("rustici.course.getMetadata", courseid: course_id, scope: scope)
+      xml.elements['/rsp/package']
     end
   end
 end
