@@ -51,7 +51,7 @@ module ScormCloud
 					join
 
 			sig = Digest::MD5.hexdigest(raw)
-			"http://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
+			"https://cloud.scorm.com/api?#{html_params}&sig=#{sig}"
 		end
 
 
