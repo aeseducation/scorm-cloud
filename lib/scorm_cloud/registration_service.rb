@@ -3,7 +3,7 @@ module ScormCloud
 
 		not_implemented :get_registration_list_results,
 			:get_launch_history, :get_launch_info, :reset_global_objectives,
-			:update_learner_info, :test_registration_post_url
+			:update_learner_info
 
 		def create_registration(course_id, reg_id, first_name, last_name, learner_id, options = {})
 			params = options.merge({ 
@@ -42,6 +42,16 @@ module ScormCloud
 
 		def reset_registration(reg_id)
 			xml = connection.call("rustici.registration.resetRegistration", {:regid => reg_id })
+			!xml.elements["/rsp/success"].nil?
+		end
+		
+		def test_registration_post_url(postbackurl, urlname, urlpass, options ={})
+			params = options.merge({ 
+				:postbackurl => postbackurl,
+				:urlname => urlname,
+				:urlpass => urlpass
+			})
+			xml = connection.call("rustici.registration.testRegistrationPostUrl", params)
 			!xml.elements["/rsp/success"].nil?
 		end
 
