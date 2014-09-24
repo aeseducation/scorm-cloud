@@ -1,9 +1,7 @@
 module ScormCloud
 	class RegistrationService < BaseService
 
-		not_implemented :get_registration_list_results,
-			:get_launch_history, :get_launch_info, :reset_global_objectives,
-			:update_learner_info
+		not_implemented :get_registration_list_results, :reset_global_objectives, :update_learner_info
 
 		def create_registration(course_id, reg_id, first_name, last_name, learner_id, options = {})
 			params = options.merge({ 
