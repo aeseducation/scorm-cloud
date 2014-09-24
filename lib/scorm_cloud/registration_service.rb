@@ -54,6 +54,11 @@ module ScormCloud
 			xml = connection.call("rustici.registration.testRegistrationPostUrl", params)
 			!xml.elements["/rsp/success"].nil?
 		end
+		
+		def get_launch_info(launch_id)
+			xml = connection.call("rustici.registration.getLaunchInfo", {:launchid => launch_id })
+			!xml.elements["/rsp/success"].nil?
+		end
 
 
 	end
