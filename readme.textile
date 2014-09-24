@@ -25,10 +25,9 @@ bc. require 'scorm_cloud', :git => 'git@github.com:aeseducation/scorm-cloud.git'
 _Place the following in: config/initializers/scorm_cloud.rb_
 
 bc. # Change MyApplication to the name of your application
-MyApplication::Application.configure do |config|
-	config.scorm_cloud.appid = "my_app_id"
-	config.scorm_cloud.secretkey = "my_secret_key"
-end
+MyApplication::Application.config.scorm_cloud.appid = "my_app_id"
+MyApplication::Application.config.scorm_cloud.secretkey = "my_secret_key"
+
 
 _Place the following in: /app/controllers.course_controller.rb_
 
