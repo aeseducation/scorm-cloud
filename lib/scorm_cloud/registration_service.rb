@@ -59,6 +59,11 @@ module ScormCloud
 			xml = connection.call("rustici.registration.getLaunchInfo", {:launchid => launch_id })
 			!xml.elements["/rsp/success"].nil?
 		end
+		
+		def get_launch_history(reg_id)
+			xml = connection.call("rustici.registration.getLaunchHistory", {:regid => reg_id })
+			!xml.elements["/rsp/success"].nil?
+		end
 
 
 	end
