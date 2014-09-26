@@ -14,7 +14,12 @@ module ScormCloud
 		def call_raw(method, params = {})
 			url = prepare_url(method, params)
 			execute_call_plain(url)
-		end			
+		end
+		
+		def call_https(method, params = {})
+			url = prepare_url(method, params)
+			execute_call_https(url)
+		end
 
 		# Get plain response body and parse the XML doc
 		def execute_call_xml(url)
@@ -26,6 +31,24 @@ module ScormCloud
 		# Execute the call - returns response body or redirect url
 		def execute_call_plain(url)
 			res = Net::HTTP.get_response(URI.parse(url))
+			case res
+			when Net::HTTPRedirection
+				# Return the new URL
+				res['location']
+			when Net::HTTPSuccess
+				res.body
+			else
+				raise "HTTP Error connecting to scorm cloud: #{res.inspect}"
+			end
+		end
+		
+		def execute_call_https(url)
+			uri = URI.parse(url)
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			request = Net::HTTP::Get.new(uri.request_uri)
+			response = http.request(request)
+			
 			case res
 			when Net::HTTPRedirection
 				# Return the new URL
