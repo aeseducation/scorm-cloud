@@ -4,6 +4,7 @@ require 'net/http'
 require 'net/http/post/multipart'
 require 'uri'
 require 'scorm_cloud/base'
+require 'scorm_cloud/error'
 
 require 'scorm_cloud/base_object'
 require 'scorm_cloud/course'
