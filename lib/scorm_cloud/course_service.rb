@@ -11,6 +11,13 @@ module ScormCloud
       else
         xml = connection.call("rustici.course.importCourse", :courseid => course_id, :path => file)
       end
+
+      unless xml.elements['//rsp/importresult']
+        xml_text = ''
+        xml.write(xml_text)
+        raise "Missing importresult element. Entire response: #{xml_text}"
+      end
+
       if xml.elements['//rsp/importresult'].attributes["successful"] == "true"
         title = xml.elements['//rsp/importresult/title'].text 
         { :title => title, :warnings => [] }
