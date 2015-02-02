@@ -38,7 +38,7 @@ module ScormCloud
       else
         File.open(file, &block)
       end
-      REXML::Document.new(body)
+      parse_xml_response(body, url.to_s)
     end
 
     def launch_url(method, params = {})
@@ -66,8 +66,12 @@ module ScormCloud
 
     # Get plain response body and parse the XML doc
     def execute_call_xml(url)
-      doc = REXML::Document.new(execute_call_plain(url))
-      raise RequestError.new(doc, url) unless doc.elements["rsp"].attributes["stat"] == "ok"
+      parse_xml_response(execute_call_plain(url), url)
+    end
+
+    def parse_xml_response(response, url)
+      doc = REXML::Document.new(response)
+      raise RequestError.new(doc, url) unless doc.elements["rsp"] && doc.elements["rsp"].attributes["stat"] == "ok"
       doc
     end
 
