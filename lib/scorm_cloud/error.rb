@@ -1,5 +1,8 @@
 module ScormCloud
-  class RequestError < RuntimeError
+  class Error < RuntimeError
+  end
+
+  class RequestError < Error
     attr_reader :code, :msg, :url
 
     def initialize(doc, url)
@@ -16,6 +19,12 @@ module ScormCloud
         doc.write(doc_xml)
         @msg = "Request failed with an unknown error. Entire response: #{doc_xml}"
       end
+    end
+  end
+
+  class InvalidPackageError < Error
+    def initialize
+      super('Not a valid SCORM package')
     end
   end
 end
