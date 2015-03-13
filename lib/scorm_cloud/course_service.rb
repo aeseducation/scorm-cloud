@@ -22,7 +22,18 @@ module ScormCloud
         title = xml.elements['//rsp/importresult/title'].text 
         { :title => title, :warnings => [] }
       else
-        nil
+        # Package was a zip file that wasn't a SCORM package
+        invalid = xml.elements['//rsp/importresult/message'] && xml.elements['//rsp/importresult/message'].text == 'zip file contained no courses'
+        # Package wasn't a zip file at all
+        xml.elements['//rsp/importresult'].nil?
+
+        if invalid
+          raise InvalidPackageError
+        else
+          xml_text = ''
+          xml.write(xml_text)
+          raise "Not successful. Response: #{xml_text}"
+        end
       end
     end
 
