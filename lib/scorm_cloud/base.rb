@@ -85,7 +85,7 @@ module ScormCloud
       when Net::HTTPSuccess
         res.body
       else
-        raise "HTTP Error connecting to scorm cloud: #{res.inspect}"
+        raise TransportError.new(res)
       end
     end
 
