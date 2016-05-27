@@ -1,11 +1,13 @@
 module ScormCloud
   class Base
     attr_reader :appid, :api_url
+    attr_accessor :logger
 
-    def initialize(appid, secret, api_url="https://cloud.scorm.com/api")
+    def initialize(appid, secret, api_url="https://cloud.scorm.com/api", logger=nil)
       @appid = appid
       @secret = secret
       @api_url = api_url
+      @logger = logger
     end
 
     def call(method, params = {})
@@ -38,6 +40,7 @@ module ScormCloud
       else
         File.open(file, &block)
       end
+      log_request_response(body, url)
       parse_xml_response(body, url.to_s)
     end
 
@@ -46,6 +49,13 @@ module ScormCloud
     end
 
   private
+
+    # Log the request/response
+    def log_request_response(body, url)
+      return if logger.nil?
+      logger.debug("Request: #{url}")
+      logger.debug("Response: #{body}")
+    end
 
     # Get the URL for the call
     def prepare_url(method, params = {})
@@ -78,6 +88,7 @@ module ScormCloud
     # Execute the call - returns response body or redirect url
     def execute_call_plain(url)
       res = Net::HTTP.get_response(URI.parse(url))
+      log_request_response(res.body, url)
       case res
       when Net::HTTPRedirection
         # Return the new URL
