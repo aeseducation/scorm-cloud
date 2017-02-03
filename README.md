@@ -9,13 +9,16 @@ This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
 ## Shell CLI Interface
 
 $ `gem install scorm_cloud`  
-$ `scorm_cloud rustici.course.getCourseList —appid myappid —secret mysecret`
+$ `scorm_cloud rustici.course.getCourseList -—appid myappid -—secret mysecret`
+$ `scorm_cloud rustici.course.getMetadata --courseid a-valid-course-id-12345`
 
 
 ## Standard Ruby Use
 
     require 'scorm_cloud'
     sc = ScormCloud::ScormCloud.new("my_app_id", "my_secret_key")
+    # sc = ScormCloud::ScormCloud.new("my_app_id", "my_secret_key", "http://custom/api/url")
+    # sc = ScormCloud::ScormCloud.new("my_app_id", "my_secret_key", "http://custom/api/url", custom_logger)
     sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
 
 
@@ -30,6 +33,7 @@ $ `scorm_cloud rustici.course.getCourseList —appid myappid —secret mysecret`
     MyApplication::Application.configure do |config|
       config.scorm_cloud.appid = "my_app_id"
       config.scorm_cloud.secretkey = "my_secret_key"
+      # config.scorm_cloud.api_url = "http://custom/api/url"
     end
 
 *Place the following in: app/controllers.course_controller.rb*
