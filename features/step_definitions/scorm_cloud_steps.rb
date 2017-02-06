@@ -144,6 +144,55 @@ Then /^the course attributes should be updated$/ do
   expect(h[:commCommitFrequency]).to eq("59999")
 end
 
+When /^I import a course asynchronously$/ do
+  @last_course_id = "small_scorm_course_#{rand(1000)}"
+  hash = @c.course.import_course_async(@last_course_id, @last_uploaded_path)
+  @last_async_token = hash[:token]
+  expect(hash).to_not be_nil
+  expect(hash[:token]).to_not be_nil
+end
+
+When /^I import a bad course asynchronously$/ do
+  @last_course_id = "small_scorm_course_#{rand(1000)}"
+  hash = @c.course.import_course_async(@last_course_id, "bogus-file-path")
+  @last_async_token = hash[:token]
+  expect(hash).to_not be_nil
+  expect(hash[:token]).to_not be_nil
+end
+
+Then /^I can query the async import result$/ do
+  h = @c.course.get_async_import_result(@last_async_token)
+  expect(h).to be_kind_of(Hash)
+  expect(%w[running finished]).to include(h[:status])
+end
+
+Then /^the async import result status will be "(.*?)"$/ do |status|
+  h = @c.course.get_async_import_result(@last_async_token)
+  expect(h[:status]).to eq status
+end
+
+Then /^the course will eventually be imported$/ do
+  h = {}
+  # give SCORM 50 seconds to process the course...
+  10.times do
+    h = @c.course.get_async_import_result(@last_async_token)
+    break if h[:status] == "finished"
+    sleep 5
+  end
+  expect(h.key?(:title)).to eq true
+end
+
+Then /^the course will eventually fail to import$/ do
+  h = {}
+  # give SCORM 50 seconds to process the course...
+  10.times do
+    h = @c.course.get_async_import_result(@last_async_token)
+    break if h[:status] == "error"
+    sleep 5
+  end
+  expect(h.key?(:error_code)).to eq true
+  expect(h.key?(:error_msg)).to eq true
+end
 
 ##
 ## Registration
