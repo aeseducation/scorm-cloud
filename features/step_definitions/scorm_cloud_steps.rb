@@ -148,7 +148,6 @@ When /^I import a course asynchronously$/ do
   @last_course_id = "small_scorm_course_#{rand(1000)}"
   hash = @c.course.import_course_async(@last_course_id, @last_uploaded_path)
   @last_async_token = hash[:token]
-  expect(hash).to_not be_nil
   expect(hash[:token]).to_not be_nil
 end
 
@@ -156,7 +155,6 @@ When /^I import a bad course asynchronously$/ do
   @last_course_id = "small_scorm_course_#{rand(1000)}"
   hash = @c.course.import_course_async(@last_course_id, "bogus-file-path")
   @last_async_token = hash[:token]
-  expect(hash).to_not be_nil
   expect(hash[:token]).to_not be_nil
 end
 

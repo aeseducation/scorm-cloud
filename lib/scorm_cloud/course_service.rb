@@ -3,11 +3,19 @@ module ScormCloud
     not_implemented :properties, :get_assets, :update_assets, :get_file_structure, :delete_files
 
     # See http://cloud.scorm.com/doc/web-services/api.html#rustici.course.getAsyncImportResult
+    #
+    # The XML for error responses looks like this:
+    #
+    #   <?xml version='1.0' encoding='UTF-8'?>
+    #   <rsp stat='ok'>
+    #     <status>error</status>
+    #     <error code='2'><![CDATA[Course zip file not found]]></error>
+    #   </rsp>
     def get_async_import_result(token)
       xml = connection.call("rustici.course.getAsyncImportResult", :token => token)
 
       status = xml.elements["//rsp/status"].text.downcase
-      response = { :status => status.downcase }
+      response = { :status => status }
 
       case status
       when "error"
