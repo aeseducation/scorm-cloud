@@ -3,10 +3,10 @@ module ScormCloud
     attr_reader :appid, :api_url
     attr_accessor :logger
 
-    def initialize(appid, secret, api_url="https://cloud.scorm.com/api", logger=nil)
+    def initialize(appid, secret, api_url=nil, logger=nil)
       @appid = appid
       @secret = secret
-      @api_url = api_url
+      @api_url = api_url || "https://cloud.scorm.com/api"
       @logger = logger
     end
 
