@@ -17,3 +17,16 @@ Feature: Course Service Interface
     When I import a course
     And I update course attributes
     Then the course attributes should be updated
+
+  Scenario: A user can async import a course
+    When I import a course asynchronously
+    Then the async import result status will be "running"
+    And the course will eventually be imported
+    And the async import result status will be "finished"
+    And the course should exist
+
+  Scenario: A user can not async import a bad course
+    When I import a bad course asynchronously
+    Then the course will eventually fail to import
+    And the async import result status will be "error"
+
