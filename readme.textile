@@ -20,7 +20,7 @@ h2. Ruby on Rails Use
 
 _Place the following in: Gemfile_
 
-bc. require 'scorm_cloud', :git => 'git@github.com:aeseducation/scorm-cloud.git'
+bc. gem 'scorm_cloud', git: 'https://github.com/pass/scorm-cloud.git'
 
 _Place the following in: config/initializers/scorm_cloud.rb_
 
