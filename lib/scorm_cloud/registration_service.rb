@@ -17,6 +17,13 @@ module ScormCloud
 			!xml.elements["/rsp/success"].nil?
 		end
 
+		def get_registration_detail(reg_id)
+			xml = connection.call("rustici.registration.getRegistrationDetail", {:regid => reg_id })
+			!xml.elements["/rsp/success"].nil?
+
+			Registration.from_xml(xml.elements["/rsp/registration"])
+		end
+
 		def delete_registration(reg_id)
 			xml = connection.call("rustici.registration.deleteRegistration", {:regid => reg_id })
 			!xml.elements["/rsp/success"].nil?
@@ -28,8 +35,9 @@ module ScormCloud
 		end
 
 		def get_registration_result(reg_id, format="course")
-			raise "Illegal format argument: #{format}" unless ["course","activity","full"].include?(format)
-			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
+			xml = connection.call("rustici.registration.getRegistrationResult", { :regid => reg_id })
+
+			RegistrationResult.from_xml(xml.elements["/rsp/registrationreport"])
 		end
 
 		def launch(reg_id, redirect_url, options = {})
