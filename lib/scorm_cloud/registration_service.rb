@@ -32,6 +32,11 @@ module ScormCloud
 			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
 		end
 
+		def get_registration_result_for_course(reg_id)
+			xml = REXML::Document.new connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => "course" })
+			RegistrationResult.from_xml(xml)
+		end
+
 		def launch(reg_id, redirect_url, options = {})
 			params = options.merge({ 
 				:regid => reg_id,
