@@ -25,10 +25,9 @@ bc. require 'scorm_cloud', :git => 'git@github.com:aeseducation/scorm-cloud.git'
 _Place the following in: config/initializers/scorm_cloud.rb_
 
 bc. # Change MyApplication to the name of your application
-MyApplication::Application.configure do |config|
-	config.scorm_cloud.appid = "my_app_id"
-	config.scorm_cloud.secretkey = "my_secret_key"
-end
+MyApplication::Application.config.scorm_cloud.appid = "my_app_id"
+MyApplication::Application.config.scorm_cloud.secretkey = "my_secret_key"
+
 
 _Place the following in: /app/controllers.course_controller.rb_
 
@@ -54,3 +53,13 @@ bq. # app/views/course/index.html.erb
 &nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;
 &lt;% end %&gt;
 &lt;/ul&gt;
+
+_Uploading a course_
+
+bc. # app/models/scorm_training.rb, using scorm_zip as a paperclip attachment in our upload form
+def upload_to!(scorm_cloud)
+	path = scorm_cloud.upload.upload_file(scorm_cloud.upload.get_upload_token, self.scorm_zip.path)
+	scorm_cloud.course.import_course(self.scorm_course_id, path)
+end
+
+
