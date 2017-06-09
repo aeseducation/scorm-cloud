@@ -6,7 +6,7 @@ module ScormCloud
 			:update_learner_info, :test_registration_post_url
 
 		def create_registration(course_id, reg_id, first_name, last_name, learner_id, options = {})
-			params = options.merge({ 
+			params = options.merge({
 				:courseid => course_id,
 				:regid => reg_id,
 				:fname => first_name,
@@ -29,11 +29,11 @@ module ScormCloud
 
 		def get_registration_result(reg_id, format="course")
 			raise "Illegal format argument: #{format}" unless ["course","activity","full"].include?(format)
-			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :format => format })
+			connection.call_raw("rustici.registration.getRegistrationResult", { :regid => reg_id, :resultsformat => format })
 		end
 
 		def launch(reg_id, redirect_url, options = {})
-			params = options.merge({ 
+			params = options.merge({
 				:regid => reg_id,
 				:redirecturl => redirect_url
 			})
