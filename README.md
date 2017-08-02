@@ -6,6 +6,8 @@
 
 This ruby gem provides a ruby interface to [Rustici Scorm Cloud](https://scorm.com/).
 
+For more information regarding Scorm Engine API concepts, see:  http://cloud.scorm.com/doc/web-services/api.html
+
 ## Shell CLI Interface
 
 ```sh
