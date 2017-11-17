@@ -1,19 +1,22 @@
 # Rustici SCORM Cloud Ruby Client
 
-> Let me know if you are interested in taking it over. I developed the code but never
-> actually used it in production. Use with caution.
+> This is a fork of https://github.com/aeseducation/scorm-cloud that has been
+> modified for some use in production.  Not all code paths have been
+> tested and used in [Instructure](https://www.instructure.com/) software.
 
-This ruby gem is provides a ruby interface to the Rustici Scorm Cloud.
+This ruby gem provides a ruby interface to [Rustici Scorm Cloud](https://scorm.com/).
 
+For more information regarding Scorm Engine API concepts, see:  http://cloud.scorm.com/doc/web-services/api.html
 
 ## Shell CLI Interface
 
-$ `gem install scorm_cloud`  
-$ `scorm_cloud rustici.course.getCourseList -—appid myappid -—secret mysecret`
-$ `scorm_cloud rustici.course.getMetadata --courseid a-valid-course-id-12345`
+```sh
+$ gem install scorm_cloud
+$ scorm_cloud rustici.course.getCourseList -—appid myappid -—secret mysecret
+$ scorm_cloud rustici.course.getMetadata --courseid a-valid-course-id-12345
+```
 
-
-## Standard Ruby Use
+## Example Ruby Usage
 
     require 'scorm_cloud'
     sc = ScormCloud::ScormCloud.new("my_app_id", "my_secret_key")
@@ -21,8 +24,7 @@ $ `scorm_cloud rustici.course.getMetadata --courseid a-valid-course-id-12345`
     # sc = ScormCloud::ScormCloud.new("my_app_id", "my_secret_key", "http://custom/api/url", custom_logger)
     sc.course.get_course_list.each { |c| puts "#{c.id} #{c.title}"}
 
-
-## Ruby on Rails Use
+## Example Ruby on Rails Usage
 
 *Place the following in: Gemfile*
 
