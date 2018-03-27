@@ -51,5 +51,15 @@ module ScormCloud
     def get_postback_info(reg_id)
       connection.call_raw("rustici.registration.getPostbackInfo", {:regid => reg_id })
     end
+
+    def update_postback_info(reg_id, url, options = {})
+      params = options.merge({
+        regid: reg_id,
+        url: url
+      })
+
+      xml = connection.call("rustici.registration.updatePostbackInfo", params)
+      !xml.elements["/rsp/success"].nil?
+    end
   end
 end
