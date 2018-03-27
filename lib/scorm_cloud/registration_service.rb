@@ -47,9 +47,5 @@ module ScormCloud
       xml = connection.call("rustici.registration.resetRegistration", {:regid => reg_id })
       !xml.elements["/rsp/success"].nil?
     end
-
-    def get_postback_info(reg_id)
-      connection.call_raw("rustici.registration.getPostbackInfo", {:regid => reg_id })
-    end
   end
 end
