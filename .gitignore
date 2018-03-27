@@ -1,8 +1,6 @@
-*.gem
 .bundle
+.rspec
+*.gem
 Gemfile.lock
 pkg/*
 spec/apikey.rb
-.rspec
-
-

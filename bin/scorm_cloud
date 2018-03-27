@@ -3,4 +3,3 @@ $:.unshift(File.expand_path('../../lib', __FILE__))
 require 'scorm_cloud'
 require 'scorm_cloud/CLI'
 ScormCloud::CLI.start
-

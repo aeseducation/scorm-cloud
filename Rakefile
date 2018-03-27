@@ -10,16 +10,16 @@ Cucumber::Rake::Task.new do |t|
 end
 
 namespace :cucumber do
-	Cucumber::Rake::Task.new('apibugs') do |t|
-  	t.cucumber_opts = "--tags @apibug"
-	end
-	Cucumber::Rake::Task.new('wip') do |t|
-  	t.cucumber_opts = "--tags @wip"
-	end
+  Cucumber::Rake::Task.new('apibugs') do |t|
+    t.cucumber_opts = "--tags @apibug"
+  end
+  Cucumber::Rake::Task.new('wip') do |t|
+    t.cucumber_opts = "--tags @wip"
+  end
 end
 
 task :test do
-	[:spec, :cucumber].each { |t| Rake::Task[t].execute }
+  [:spec, :cucumber].each { |t| Rake::Task[t].execute }
 end
 
 task :default => :test
