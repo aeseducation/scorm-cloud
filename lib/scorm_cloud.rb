@@ -4,6 +4,7 @@ require 'net/http'
 require 'net/http/post/multipart'
 require 'uri'
 require 'scorm_cloud/base'
+require 'scorm_cloud/error'
 
 require 'scorm_cloud/base_object'
 require 'scorm_cloud/course'
@@ -23,14 +24,14 @@ require 'scorm_cloud/export_service'
 require 'scorm_cloud/railtie' if defined?(Rails::Railtie)
 
 module ScormCloud
-	class ScormCloud < Base
-		add_service :debug => DebugService
-		add_service :upload => UploadService
-		add_service :course => CourseService
-		add_service :registration => RegistrationService
-		add_service :tagging => TaggingService
-		add_service :reporting => ReportingService
-		add_service :dispatch => DispatchService
-		add_service :export => ExportService
-	end
+  class ScormCloud < Base
+    add_service :debug => DebugService
+    add_service :upload => UploadService
+    add_service :course => CourseService
+    add_service :registration => RegistrationService
+    add_service :tagging => TaggingService
+    add_service :reporting => ReportingService
+    add_service :dispatch => DispatchService
+    add_service :export => ExportService
+  end
 end
